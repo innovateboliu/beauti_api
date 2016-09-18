@@ -38,6 +38,6 @@ config :api, Api.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "api_dev",
+  database: "postgres",
   hostname: "localhost",
   pool_size: 10
