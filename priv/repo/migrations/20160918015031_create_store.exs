@@ -5,6 +5,7 @@ defmodule Api.Repo.Migrations.CreateStore do
     create table(:stores) do
       add :name, :string, size: 40
       add :description, :string, size: 100
+      add :img_uri, :string
     end
     create table(:users) do
       add :name, :string
@@ -20,6 +21,7 @@ defmodule Api.Repo.Migrations.CreateStore do
     create table(:stores) do
       add :name, :string, size: 40
       add :description, :string, size: 100
+      add :img_uri, :string
     end
 
     create table(:users) do

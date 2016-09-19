@@ -6,4 +6,6 @@ defmodule Api.Reservation do
     field :store_id, :integer
     field :startTime, Ecto.DateTime
     field :endTime, Ecto.DateTime
+  end
+end
 
