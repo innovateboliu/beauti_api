@@ -11,4 +11,4 @@
 # and so on) as they will fail if something goes wrong.
 alias Api.Repo
 alias Api.Store
-Repo.insert! %Store{name: "Bo Store", description: "A fantastic nail store", img_uri: "http://localhost:4000/images/nail-pic.png"}
+Repo.insert! %Store{name: "Bo Store", description: "A fantastic nail store", img_uri: "http://localhost:8000/images/nail-pic.png"}
