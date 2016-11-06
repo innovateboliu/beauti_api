@@ -1,3 +1,4 @@
 FROM boliu/ubuntu:14.04
 COPY . /api
-CMD /usr/local/bin/start_server
+COPY start_server /usr/local/bin
+CMD bash /usr/local/bin/start_server
