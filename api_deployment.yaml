@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: beauty
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: beauty
+    spec:
+      containers:
+        - image: gcr.io/beauty-148304/beauty-api:latest
+          name: web
+          env:
+            - name: BEAUTY_DB_HOST
+              # Connect to the SQL proxy over the local network on a fixed port.
+              value: 127.0.0.1:3306
+            # These secrets are required to start the pod.
+            # [START cloudsql_secrets]
+            - name: BEAUTY_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql
+                  key: password
+            - name: BEAUTY_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql
+                  key: username
+            # [END cloudsql_secrets]
+          ports:
+            - containerPort: 80
+              name: beauty-api
+        - image: b.gcr.io/cloudsql-docker/gce-proxy:1.05
+          name: cloudsql-proxy
+          command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                    "-instances=beauty-148304:us-central1:mysql=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+            - name: cloudsql-oauth-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+            - name: ssl-certs
+              mountPath: /etc/ssl/certs
+        # [END proxy_container]
+      # [START volumes]
+      volumes:
+        - name: cloudsql-oauth-credentials
+          secret:
+            secretName: cloudsql-oauth-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+      # [END volumes]
+
