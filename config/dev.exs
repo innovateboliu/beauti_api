@@ -35,9 +35,9 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :api, Api.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "postgres",
-  hostname: "localhost",
-  pool_size: 10
+  adapter: Ecto.Adapters.MySQL,
+  hostname: "127.0.0.1",
+  port: 3306,
+  username: "root",
+  password: "root",
+  database: "beauty_dev"
